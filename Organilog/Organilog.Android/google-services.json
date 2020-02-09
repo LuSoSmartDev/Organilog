@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "324272345129",
+    "firebase_url": "https://organilog-8481f.firebaseio.com",
+    "project_id": "organilog-8481f",
+    "storage_bucket": "organilog-8481f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:324272345129:android:78127f14b0aa4575",
+        "android_client_info": {
+          "package_name": "com.organilog.v3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "324272345129-3ai4f4varofvok435a3eidhjmjlvht8j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhOOwC0GRwYwba0r77tTF49Qvene3kHr8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "324272345129-3ai4f4varofvok435a3eidhjmjlvht8j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

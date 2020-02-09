@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="Organilog.Views.Issues.AddReplyPage"
+             xmlns:effects="clr-namespace:Organilog.Effects">
+    <ContentPage.Content>
+     <Grid HorizontalOptions="FillAndExpand" Padding="10" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="40*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+             <Frame Padding="2"
+                    HasShadow="True"
+                    BorderColor="Gray"
+                    CornerRadius="5"
+                    Grid.Row="0"
+                    >
+                  <Editor
+                          x:Name="txtContent"
+                          HorizontalOptions="FillAndExpand"
+                          HeightRequest="100"
+                          FontSize="14"
+                          Placeholder="Typing your message..."
+                          PlaceholderColor="Gray"
+                          VerticalOptions="FillAndExpand" 
+                          Text="{Binding textinput}"
+                           >
+                             <Editor.Effects>
+                                <effects:BorderlessEffect/>
+                            </Editor.Effects>
+                   </Editor>
+                         
+              </Frame> 
+             <Grid Grid.Row="1" HorizontalOptions="FillAndExpand" Margin="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="50*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        Grid.Column="0"
+                        HeightRequest="40"
+                        TextColor="White"
+                        BackgroundColor="Red"
+                        Text="Annuler"
+                        VerticalOptions="Center"
+                        Command="{Binding CancelCommand}"
+                        />
+                     <Button
+                        Grid.Column="1"
+                        TextColor="White"
+                        BackgroundColor="#47cec0"
+                        Text="Ajouter"
+                        HeightRequest="40"
+                        VerticalOptions="Center"
+                        Command="{Binding AddCommand}"
+                        />
+             </Grid>
+     </Grid> 
+    </ContentPage.Content>
+</ContentPage>

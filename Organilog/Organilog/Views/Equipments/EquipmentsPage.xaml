@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:controls="clr-namespace:Xamarin.Forms.Controls"
+             xmlns:ex="clr-namespace:Xamarin.Forms.Extensions"
+             xmlns:local="clr-namespace:Organilog"
+             x:Class="Organilog.Views.Equipments.EquipmentsPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding GetSyncCommand}" Icon="ic_sync_white.png" />
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <controls:ExtendedListView
+                HasUnevenRows="True"
+                HorizontalOptions="FillAndExpand"
+                IsPullToRefreshEnabled="True"
+                IsRefreshing="{Binding IsBusy}"
+                ItemTappedCommand="{Binding ViewEquipmentCommand}"
+                ItemsSource="{Binding ListEquipment}"
+                RefreshCommand="{Binding GetEquipmentsCommand}"
+                SelectionMode="None"
+                VerticalOptions="FillAndExpand">
+                <ListView.ItemTemplate>
+                    <DataTemplate >
+                        <ViewCell >
+                            <Grid Padding="10,5,10,5" RowSpacing="0" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="80" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    FontSize="16"
+                                    IsVisible="{Binding Title, Converter={StaticResource HasDataConverter}}"
+                                    Text="{Binding Title}"
+                                    MaxLines="1"
+                                    TextColor="Black"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    FontSize="12"
+                                    IsVisible="{Binding Client.Title, Converter={StaticResource HasDataConverter}}"
+                                    Text="{Binding Client.Title}"
+                                    TextColor="#202020"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    Grid.Row="3"
+                                    Grid.Column="0"
+                                    FontSize="11"
+                                    IsVisible="{Binding Address.FullAddress, Converter={StaticResource HasDataConverter}}"
+                                    MinimumHeightRequest="20"
+                                    Text="{Binding Address.FullAddress}"
+                                    TextColor="#0d0d0d"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    Grid.Row="4"
+                                    Grid.Column="0"
+                                    FontSize="12"
+                                    IsVisible="{Binding DateBuy, Converter={StaticResource HasDataConverter}}"
+                                    Text="{Binding DateBuy, StringFormat='{}{0:dd/MM/yyyy}'}"
+                                    TextColor="#737373" />
+                                <!--<interventions:InterventionStatusView
+                                    Grid.Row="0"
+                                    Grid.RowSpan="5"
+                                    Grid.Column="1"
+                                    CheckedImage="ic_checkbox_checked"
+                                    Command="{Binding BindingContext.ChangeDoneCommand, Source={Reference this}}"
+                                    CommandParameter="{Binding .}"
+                                    HasIndeterminate="{Binding Source={Static local:AppSettings.MobileShowToggleProgress}}"
+                                    HeightRequest="30"
+                                    HorizontalOptions="Center"
+                                    IndeterminateImage="ic_in_progress"
+                                    IsChecked="{Binding IsDone}"
+                                    UnCheckedImage="ic_checkbox_unchecked"
+                                    VerticalOptions="Center"
+                                    WidthRequest="30" />-->
+
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </controls:ExtendedListView>
+
+            <Button
+                BackgroundColor="#47cec0"
+                BorderColor="#47cec0"
+                Command="{Binding AddEquipmentCommand}"
+                CornerRadius="0"
+                FontSize="16"
+                HeightRequest="45"
+                HorizontalOptions="FillAndExpand"
+                Text="{ex:Translate Key=button_text_add_an_equipment}"
+                TextColor="White"
+                VerticalOptions="End" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

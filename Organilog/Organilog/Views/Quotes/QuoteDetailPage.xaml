@@ -1,0 +1,550 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="Organilog.Views.Quotes.QuoteDetailPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:Xamarin.Forms.Controls"
+    xmlns:ex="clr-namespace:Xamarin.Forms.Extensions"
+    xmlns:local="clr-namespace:Organilog"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    x:Name="this"
+    Title="{Binding Title}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding DeleteQuoteCommand}" Icon="ic_delete_white" />
+        <ToolbarItem Command="{Binding EditQuoteCommand}" Icon="ic_edit_white.png" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ScrollView
+            BackgroundColor="White"
+            HorizontalOptions="FillAndExpand"
+            Orientation="Vertical"
+            VerticalOptions="FillAndExpand"
+            VerticalScrollBarVisibility="Never">
+            <StackLayout
+                HorizontalOptions="FillAndExpand"
+                Spacing="0"
+                VerticalOptions="Start">
+                <!--  ID  -->
+                <Label
+                    BackgroundColor="DeepSkyBlue"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    HeightRequest="35"
+                    HorizontalOptions="FillAndExpand"
+                    HorizontalTextAlignment="Center"
+                    Text="{Binding InvoiceID}"
+                    TextColor="White"
+                    VerticalOptions="Start"
+                    VerticalTextAlignment="Center" />
+                <!--  Client info  -->
+                <StackLayout
+                    Padding="10,5,10,5"
+                    HorizontalOptions="FillAndExpand"
+                    Spacing="0"
+                    VerticalOptions="Start">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"/>
+                             <RowDefinition Height="20"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70*"/>
+                            <ColumnDefinition Width="30*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            FontAttributes="Bold"
+                            FontSize="14"
+                            Text="{Binding Quote.Client.Title}" />
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            FontAttributes="Italic"
+                            FontSize="14"
+                            Text="{Binding Quote.Address.FullAddress}" />
+                        
+                           <Button
+                             Grid.Row="0"
+                             Grid.RowSpan="2"
+                             Grid.Column="1"
+                             IsVisible="{Binding SyncToWeb}"
+                             Padding="0"
+                             BackgroundColor="#47cec0"
+                             BorderColor="#47cec0"
+                             Command="{Binding PaynowCommand}"
+                             FontAttributes="None"
+                             FontSize="10"
+                             HeightRequest="40"
+                             HorizontalOptions="FillAndExpand"
+                             Text="Payer en ligne"
+                             TextColor="White"
+                             VerticalOptions="Center" />
+                                       
+                   </Grid>
+                </StackLayout>
+                <!--  Dates  -->
+                <controls:Separator
+                    BackgroundColor="LightGray"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal"
+                    VerticalOptions="Start" />
+                <StackLayout
+                    Margin="10,5,10,0"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal"
+                    VerticalOptions="Start">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="12"
+                        HorizontalOptions="StartAndExpand"
+                        Text="{ex:Translate Key=label_text_quote_date}"
+                        TextColor="DimGray" />
+                    <Label
+                        FontSize="12"
+                        HorizontalOptions="End"
+                        Text="{Binding Quote.IDate, StringFormat='{}{0:dd/MM/yyyy}'}"
+                        TextColor="DimGray" />
+                </StackLayout>
+                <StackLayout
+                    Margin="10,5,10,5"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal"
+                    VerticalOptions="Start">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="12"
+                        HorizontalOptions="StartAndExpand"
+                        Text="{ex:Translate Key=label_text_expiration_date}"
+                        TextColor="DimGray" />
+                    <Label
+                        FontSize="12"
+                        HorizontalOptions="End"
+                        Text="{Binding Quote.IDueDate, StringFormat='{}{0:dd/MM/yyyy}'}"
+                        TextColor="DimGray" />
+                </StackLayout>
+                <!--  Comment  -->
+                <controls:Separator
+                    BackgroundColor="LightGray"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal"
+                    VerticalOptions="Start" />
+                <StackLayout
+                    Margin="10,5,10,5"
+                    HorizontalOptions="FillAndExpand"
+                    Spacing="0"
+                    VerticalOptions="Start">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="12"
+                        Text="{ex:Translate Key=label_text_private_comment}"
+                        TextColor="DimGray" />
+                    <Label
+                        FontSize="12"
+                        Text="{Binding Quote.PrivateComment}"
+                        TextColor="DimGray" />
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="12"
+                        Text="{ex:Translate Key=label_text_public_comment}"
+                        TextColor="DimGray" />
+                    <Label
+                        FontSize="12"
+                        Text="{Binding Quote.PublicComment}"
+                        TextColor="DimGray" />
+                </StackLayout>
+                <!--  Quote status  -->
+                <controls:Separator
+                    BackgroundColor="LightGray"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal"
+                    VerticalOptions="Start" />
+                <StackLayout
+                    Margin="10,5,10,0"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal"
+                    VerticalOptions="Start">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="12"
+                        HorizontalOptions="EndAndExpand"
+                        HorizontalTextAlignment="End"
+                        Text="{Binding Quote.Status}"
+                        TextColor="{Binding Quote.StatusNumber, Converter={StaticResource StatusToColor}}" />
+                </StackLayout>
+                <!--  Summary  -->
+                <StackLayout
+                    Margin="10,0,10,0"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal"
+                    VerticalOptions="Start">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="12"
+                        HorizontalOptions="FillAndExpand"
+                        HorizontalTextAlignment="End"
+                        Text="Total HT" />
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="12"
+                        HorizontalOptions="End"
+                        HorizontalTextAlignment="End"
+                        Text="{Binding Quote.CachePtHt, StringFormat='{}{0:###,###,###,##0.##}€'}"
+                        WidthRequest="80" />
+                </StackLayout>
+                <StackLayout
+                    Margin="10,0,10,0"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal"
+                    VerticalOptions="Start">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="12"
+                        HorizontalOptions="FillAndExpand"
+                        HorizontalTextAlignment="End"
+                        Text="TVA" />
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="12"
+                        HorizontalOptions="End"
+                        HorizontalTextAlignment="End"
+                        Text="{Binding Quote.CachePtTax, StringFormat='{}{0:###,###,###,##0.##}€'}"
+                        WidthRequest="80" />
+                </StackLayout>
+                <StackLayout
+                    Margin="10,0,10,0"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal"
+                    VerticalOptions="Start">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="12"
+                        HorizontalOptions="FillAndExpand"
+                        HorizontalTextAlignment="End"
+                        Text="Total TTC" />
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="12"
+                        HorizontalOptions="End"
+                        HorizontalTextAlignment="End"
+                        Text="{Binding Quote.CachePtTtcToPay, StringFormat='{}{0:###,###,###,##0.##}€'}"
+                        WidthRequest="80" />
+                </StackLayout>
+                <!--  Product  -->
+                <Frame
+                    Margin="-1,5,-1,0"
+                    Padding="10,8,10,8"
+                    BackgroundColor="WhiteSmoke"
+                    BorderColor="LightGray"
+                    CornerRadius="0"
+                    HasShadow="False"
+                    VerticalOptions="Start">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        Text="{ex:Translate Key=label_text_products}"
+                        TextColor="Black"
+                        VerticalOptions="Center" />
+                </Frame>
+                <controls:ExtendedStackLayout
+                    HorizontalOptions="FillAndExpand"
+                    ItemsSource="{Binding Quote.LinkInvoiceProducts}"
+                    Spacing="0"
+                    VerticalOptions="Start">
+                    <controls:ExtendedStackLayout.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout HorizontalOptions="FillAndExpand" Spacing="0">
+                                <controls:Separator
+                                    BackgroundColor="LightGray"
+                                    HorizontalOptions="FillAndExpand"
+                                    Orientation="Horizontal"
+                                    VerticalOptions="Start" />
+                                <Grid Padding="10,5,5,5" RowSpacing="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="60" />
+                                        <ColumnDefinition Width="80" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        FontAttributes="Bold"
+                                        FontSize="12"
+                                        Text="{Binding Label}" />
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        FontSize="12"
+                                        Text="{Binding ProQuantityPrice}"
+                                        VerticalOptions="Center" />
+                                    <Label
+                                        Grid.Row="2"
+                                        Grid.Column="0"
+                                        FontSize="12"
+                                        Text="{Binding RateOfTax, StringFormat='{}Tax rate: {0:###,###,###,##0.##}%'}"
+                                        VerticalOptions="Center" />
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        FontSize="12"
+                                        HorizontalOptions="End"
+                                        Text="Total HT"
+                                        VerticalOptions="Center" />
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        FontSize="12"
+                                        HorizontalOptions="End"
+                                        Text="TVA"
+                                        VerticalOptions="Center" />
+                                    <Label
+                                        Grid.Row="2"
+                                        Grid.Column="1"
+                                        FontSize="12"
+                                        HorizontalOptions="End"
+                                        Text="Total TTC"
+                                        VerticalOptions="Center" />
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="2"
+                                        FontSize="12"
+                                        HorizontalOptions="End"
+                                        Text="{Binding TotalPrice, StringFormat='{}{0:###,###,###,##0.##}€'}"
+                                        VerticalOptions="Center" />
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="2"
+                                        FontSize="12"
+                                        HorizontalOptions="End"
+                                        Text="{Binding AmountOfTax, StringFormat='{}{0:###,###,###,##0.##}€'}"
+                                        VerticalOptions="Center" />
+                                    <Label
+                                        Grid.Row="2"
+                                        Grid.Column="2"
+                                        FontSize="12"
+                                        HorizontalOptions="End"
+                                        Text="{Binding TotalPriceWithTax, StringFormat='{}{0:###,###,###,##0.##}€'}"
+                                        VerticalOptions="Center" />
+                                </Grid>
+                            </StackLayout>
+                        </DataTemplate>
+                    </controls:ExtendedStackLayout.ItemTemplate>
+                </controls:ExtendedStackLayout>
+                 <Frame
+                    Margin="-1,5,-1,0"
+                    Padding="10,8,10,8"
+                    BackgroundColor="WhiteSmoke"
+                    BorderColor="LightGray"
+                    CornerRadius="0"
+                    HasShadow="False"
+                    VerticalOptions="Start">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        Text="Media"
+                        TextColor="Black"
+                        VerticalOptions="Center" />
+                    
+                </Frame>
+               
+                <controls:RepeaterView
+                        HorizontalOptions="Center"
+                        HorizontalScrollBarVisibility="Never"
+                        ItemsSource="{Binding Quote.MediaLinks}"
+                        Orientation="Horizontal"
+                        Spacing="5"
+                        Margin="0,5,0,0">
+                        <controls:RepeaterView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame
+                                    Padding="2"
+                                    BorderColor="Gray"
+                                    CornerRadius="3"
+                                    HasShadow="False"
+                                    HeightRequest="130"
+                                    HorizontalOptions="Center"
+                                    IsVisible="{Binding IsActif, Converter={StaticResource IntToBoolConverter}}"
+                                    WidthRequest="100">
+                                    <StackLayout Spacing="0">
+                                        <ffimageloading:CachedImage
+                                            Aspect="AspectFit"
+                                            HeightRequest="100"
+                                            Source="{Binding Media.ImageDisplay}"
+                                            VerticalOptions="FillAndExpand"
+                                            WidthRequest="100">
+                                            <ffimageloading:CachedImage.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding BindingContext.ViewMediaCommand, Source={Reference this}}" CommandParameter="{Binding .}" />
+                                            </ffimageloading:CachedImage.GestureRecognizers>
+                                        </ffimageloading:CachedImage>
+                                       <Button
+                                            Padding="0"
+                                            BackgroundColor="Red"
+                                            Command="{Binding BindingContext.DeleteMediaCommand, Source={Reference this}}"
+                                            CommandParameter="{Binding .}"
+                                            FontAttributes="None"
+                                            FontSize="10"
+                                            HeightRequest="30"
+                                            HorizontalOptions="FillAndExpand"
+                                            Text="{ex:Translate Key=button_text_delete}"
+                                            TextColor="White"
+                                            VerticalOptions="End" />
+                                    </StackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </controls:RepeaterView.ItemTemplate>
+                    </controls:RepeaterView>
+                    
+                  <StackLayout
+                    Margin="5,10,5,0"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal"
+                    Spacing="2"
+                    VerticalOptions="Start">
+                    <Frame
+                        Padding="2,4,2,4"
+                        BackgroundColor="WhiteSmoke"
+                        BorderColor="Gray"
+                        CornerRadius="5"
+                        HasShadow="False"
+                        HorizontalOptions="FillAndExpand"
+                        IsVisible="{Binding Source={Static local:AppSettings.MobileActiveTakePhoto}}"
+                        VerticalOptions="Center">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding TakePhotoCommand}" />
+                        </Frame.GestureRecognizers>
+                        <StackLayout
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            Spacing="0"
+                            VerticalOptions="FillAndExpand">
+                            <Image
+                                HeightRequest="20"
+                                HorizontalOptions="Start"
+                                Source="ic_camera_black"
+                                VerticalOptions="Center"
+                                WidthRequest="25" />
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="12"
+                                HorizontalOptions="CenterAndExpand"
+                                HorizontalTextAlignment="Center"
+                                LineBreakMode="TailTruncation"
+                                Text="{ex:Translate Key=label_text_camera}"
+                                TextColor="Black"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                    </Frame>
+                    <Frame
+                        Padding="2,4,2,4"
+                        BackgroundColor="WhiteSmoke"
+                        BorderColor="Gray"
+                        CornerRadius="5"
+                        HasShadow="False"
+                        HorizontalOptions="FillAndExpand"
+                        IsVisible="{Binding Source={Static local:AppSettings.MobileActivePickPhoto}}"
+                        VerticalOptions="Center">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding PickPhotoCommand}" />
+                        </Frame.GestureRecognizers>
+                        <StackLayout
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            Spacing="0"
+                            VerticalOptions="FillAndExpand">
+                            <Image
+                                HeightRequest="20"
+                                HorizontalOptions="Start"
+                                Source="ic_folder_black"
+                                VerticalOptions="Center"
+                                WidthRequest="25" />
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="12"
+                                HorizontalOptions="CenterAndExpand"
+                                HorizontalTextAlignment="Center"
+                                LineBreakMode="TailTruncation"
+                                Text="{ex:Translate Key=label_text_library}"
+                                TextColor="Black"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                    </Frame>
+                    <Frame
+                        Padding="2,4,2,4"
+                        BackgroundColor="WhiteSmoke"
+                        BorderColor="Gray"
+                        CornerRadius="5"
+                        HasShadow="False"
+                        HorizontalOptions="FillAndExpand"
+                        IsVisible="{Binding Source={Static local:AppSettings.MobileActiveSignature}}"
+                        VerticalOptions="Center">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SignatureCommand}" />
+                        </Frame.GestureRecognizers>
+                        <StackLayout
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            Spacing="0"
+                            VerticalOptions="FillAndExpand">
+                            <Image
+                                HeightRequest="20"
+                                HorizontalOptions="Start"
+                                Source="ic_create_black"
+                                VerticalOptions="Center"
+                                WidthRequest="25" />
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="12"
+                                HorizontalOptions="CenterAndExpand"
+                                HorizontalTextAlignment="Center"
+                                LineBreakMode="TailTruncation"
+                                Text="{ex:Translate Key=label_text_signature}"
+                                TextColor="Black"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+                  <!--  <Frame
+                                Padding="2,4,2,4"
+                                BackgroundColor="WhiteSmoke"
+                                BorderColor="Gray"
+                                CornerRadius="5"
+                                HasShadow="False"
+                                HorizontalOptions="Center"
+                                IsVisible="{Binding Source={Static local:AppSettings.MobileActiveSignature}}"
+                                VerticalOptions="Start"
+                                Margin="25,5,25,5"
+                                >
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SignatureCommand}" />
+                                </Frame.GestureRecognizers>
+                                <StackLayout
+                                    HorizontalOptions="FillAndExpand"
+                                    Orientation="Horizontal"
+                                    Spacing="0"
+                                    VerticalOptions="FillAndExpand">
+                                    <Image
+                                        HeightRequest="20"
+                                        HorizontalOptions="Start"
+                                        Source="ic_create_black"
+                                        VerticalOptions="Center"
+                                        WidthRequest="25" />
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="12"
+                                        HorizontalOptions="CenterAndExpand"
+                                        HorizontalTextAlignment="Center"
+                                        LineBreakMode="TailTruncation"
+                                        Text="{ex:Translate Key=label_text_signature}"
+                                        TextColor="Black"
+                                        VerticalOptions="Center" />
+                                </StackLayout>
+                     </Frame>-->
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

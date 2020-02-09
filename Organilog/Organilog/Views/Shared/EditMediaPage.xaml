@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Organilog.Views.Shared.EditMediaPage" 
+             xmlns:ex="clr-namespace:Xamarin.Forms.Extensions"
+             xmlns:imageeditor="clr-namespace:Syncfusion.SfImageEditor.XForms;assembly=Syncfusion.SfImageEditor.XForms">
+             <ContentPage.ToolbarItems>
+                <ToolbarItem  Text="" />
+            </ContentPage.ToolbarItems>
+             <ContentPage.Content>
+                    <imageeditor:SfImageEditor x:Name="editorImage" Source="{Binding MediaLink.Media.ImageDisplayDetail}" ImageSaving="Handle_ImageSaving" ImageSaved="Handle_ImageSaved" />
+             </ContentPage.Content>
+ </ContentPage>

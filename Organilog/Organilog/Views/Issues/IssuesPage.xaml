@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="Organilog.Views.Issues.IssuesPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:Xamarin.Forms.Controls"
+    xmlns:ex="clr-namespace:Xamarin.Forms.Extensions"
+    xmlns:local="clr-namespace:Organilog"
+    Title="{ex:Translate Key=page_title_issues}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding GetSyncCommand}" Icon="ic_sync_white.png" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+          
+        <StackLayout
+            HorizontalOptions="FillAndExpand"
+            Spacing="0"
+            VerticalOptions="FillAndExpand">
+           <controls:Separator
+                    BackgroundColor="Gray"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal"
+                    VerticalOptions="Start" />
+           <StackLayout
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal"
+                    Spacing="0"
+                    VerticalOptions="Start"
+                    BackgroundColor="{Binding DetailTabColor}"
+                    >
+                    <StackLayout
+                        HeightRequest="35"
+                        HorizontalOptions="FillAndExpand"
+                        Spacing="0"
+                        VerticalOptions="FillAndExpand">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ViewOpenIssueCommand}" />
+                        </StackLayout.GestureRecognizers>
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="13"
+                            HorizontalOptions="CenterAndExpand"
+                            Text="Ouverts"
+                            TextColor="DimGray"
+                            VerticalOptions="CenterAndExpand" />
+                        <BoxView
+                            
+                            HeightRequest="4"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="End" />
+                    </StackLayout>
+                    <StackLayout
+                        HorizontalOptions="FillAndExpand"
+                        Spacing="0"
+                        VerticalOptions="FillAndExpand"
+                        BackgroundColor="{Binding MediaTabColor}"
+                        >
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ViewClosedCommand}" />
+                        </StackLayout.GestureRecognizers>
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="13"
+                            HorizontalOptions="CenterAndExpand"
+                            Text="Fermés"
+                            TextColor="DimGray"
+                            VerticalOptions="CenterAndExpand" />
+                        <BoxView
+                            HeightRequest="4"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="End" />
+                    </StackLayout>
+                </StackLayout>
+           <controls:ExtendedListView
+                HasUnevenRows="True"
+                HorizontalOptions="FillAndExpand"
+                IsPullToRefreshEnabled="True"
+                IsRefreshing="{Binding IsBusy}"
+                ItemTappedCommand="{Binding ViewIssueCommand}"
+                ItemsSource="{Binding ListIssue}"
+                RefreshCommand="{Binding GetIssuesCommand}"
+                SelectionMode="None"
+                VerticalOptions="FillAndExpand">
+               <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="10,5,10,5" RowSpacing="0" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="80" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                               
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    FontSize="16"
+                                    IsVisible="{Binding LegalTitle, Converter={StaticResource HasDataConverter}}"
+                                    Text="{Binding LegalTitle}"
+                                    MaxLines="1"
+                                    TextColor="Black"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    FontSize="12"
+                                    IsVisible="{Binding Client.Title, Converter={StaticResource HasDataConverter}}"
+                                    Text="{Binding Client.Title}"
+                                    TextColor="#202020"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    Grid.Row="3"
+                                    Grid.Column="0"
+                                    FontSize="11"
+                                    IsVisible="{Binding Address.FullAddress, Converter={StaticResource HasDataConverter}}"
+                                    MinimumHeightRequest="20"
+                                    Text="{Binding Address.FullAddress}"
+                                    TextColor="#0d0d0d"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    Grid.Row="4"
+                                    Grid.Column="0"
+                                    FontSize="12"
+                                    IsVisible="{Binding DateStart, Converter={StaticResource HasDataConverter}}"
+                                    Text="{Binding DateAndTime}"
+                                    TextColor="#737373" />
+                                <!--<interventions:InterventionStatusView
+                                    Grid.Row="0"
+                                    Grid.RowSpan="5"
+                                    Grid.Column="1"
+                                    CheckedImage="ic_checkbox_checked"
+                                    Command="{Binding BindingContext.ChangeDoneCommand, Source={Reference this}}"
+                                    CommandParameter="{Binding .}"
+                                    HasIndeterminate="{Binding Source={Static local:AppSettings.MobileShowToggleProgress}}"
+                                    HeightRequest="30"
+                                    HorizontalOptions="Center"
+                                    IndeterminateImage="ic_in_progress"
+                                    IsChecked="{Binding IsDone}"
+                                    UnCheckedImage="ic_checkbox_unchecked"
+                                    VerticalOptions="Center"
+                                    WidthRequest="30" />-->
+                                
+                                 <Label
+                                    Grid.Row="0"
+                                    Grid.RowSpan="5"
+                                    Grid.Column="1"
+                                    FontSize="11"
+                                    HorizontalOptions="End"
+                                    IsVisible="{Binding Source={Static local:AppSettings.MobileShowPriority}}"
+                                    Text="{Binding Priority, Converter={StaticResource PriorityToTextConverter}}"
+                                    TextColor="{Binding Priority, Converter={StaticResource PriorityToColorConverter}}"
+                                />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </controls:ExtendedListView>
+           
+            <Button
+                BackgroundColor="#47cec0"
+                BorderColor="#47cec0"
+                Command="{Binding AddIssueCommand}"
+                CornerRadius="0"
+                FontSize="16"
+                HeightRequest="45"
+                HorizontalOptions="FillAndExpand"
+                Text="{ex:Translate Key=button_text_add_an_issue}"
+                TextColor="White"
+                VerticalOptions="End" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

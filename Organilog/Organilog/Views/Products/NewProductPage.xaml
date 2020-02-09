@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+ <ContentPage
+     x:Class="Organilog.Views.Products.NewProductPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:effects="clr-namespace:Organilog.Effects"
+    xmlns:ex="clr-namespace:Xamarin.Forms.Extensions"
+    x:Name="this"
+    Title="{ex:Translate Key=page_title_add_a_product}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding CancelCommand}" Text="{ex:Translate Key=text_cancel}" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ScrollView
+            HorizontalOptions="FillAndExpand"
+            Orientation="Vertical"
+            VerticalOptions="FillAndExpand"
+            VerticalScrollBarVisibility="Never">
+            <StackLayout
+                HorizontalOptions="FillAndExpand"
+                Spacing="0"
+                VerticalOptions="FillAndExpand">
+
+                 <Grid  Margin="16,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="20"/>
+                    </Grid.ColumnDefinitions>
+                    <Entry
+                        Grid.Column="0"
+                        FontSize="14"
+                        HorizontalOptions="FillAndExpand"
+                        IsSpellCheckEnabled="False"
+                        IsTextPredictionEnabled="False"
+                        Placeholder="{ex:Translate Key=label_text_product_name}"
+                        PlaceholderColor="LightGray"
+                        Text="{Binding  Product.Nom}"
+                        TextColor="Black"
+                        VerticalOptions="Start">
+                        <Entry.Effects>
+                            <effects:RoundedEffect />
+                        </Entry.Effects>
+                    </Entry>
+
+                    <Label
+                        Grid.Column="1"
+                        FontAttributes="Bold"
+                        FontSize="Large"
+                        Text="*"
+                        VerticalOptions="Center"
+                        TextColor="Red"/>
+                </Grid>
+                
+                <Entry
+                    Margin="16,10,20,0"
+                    FontSize="14"
+                    HorizontalOptions="FillAndExpand"
+                    IsSpellCheckEnabled="False"
+                    IsTextPredictionEnabled="False"
+                    Placeholder="Supplier"
+                    PlaceholderColor="LightGray"
+                    Text="{Binding  Product.Supplier}"
+                    TextColor="Black"
+                    VerticalOptions="Start">
+                    <Entry.Effects>
+                        <effects:RoundedEffect />
+                    </Entry.Effects>
+                </Entry>
+           
+
+                <Grid  Margin="16,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="20"/>
+                    </Grid.ColumnDefinitions>
+                    <Entry
+                         Grid.Column="0"
+                        FontSize="14"
+                        HorizontalOptions="FillAndExpand"
+                        IsSpellCheckEnabled="False"
+                        IsTextPredictionEnabled="False"
+                        Placeholder="{ex:Translate Key=label_text_quantity}"
+                        PlaceholderColor="LightGray"
+                        Text="{Binding Product.Quantity}"
+                        TextColor="Black"
+                        VerticalOptions="Start"
+                        Keyboard="Numeric"
+                        >
+                        <Entry.Effects>
+                            <effects:RoundedEffect />
+                        </Entry.Effects>
+                    </Entry>
+                    <Label
+                        Grid.Column="1"
+                        FontAttributes="Bold"
+                        FontSize="Large"
+                        Text="*"
+                        VerticalOptions="Center"
+                        TextColor="Red"/>
+                </Grid>
+                <Entry
+                        Margin="16,10,20,0"
+                        HorizontalOptions="FillAndExpand"
+                        IsSpellCheckEnabled="False"
+                        IsTextPredictionEnabled="False"
+                        Placeholder="{ex:Translate Key=label_text_price_without_tax}"
+                        PlaceholderColor="LightGray"
+                        Text="{Binding Product.PriceUnit}"
+                        TextColor="Black"
+                        Keyboard="Numeric"
+                        VerticalOptions="Start">
+                    <Entry.Effects>
+                        <effects:RoundedEffect />
+                    </Entry.Effects>
+                </Entry>
+                
+                <Entry
+                    Margin="16,10,20,0"
+                    FontSize="14"
+                    HorizontalOptions="FillAndExpand"
+                    IsSpellCheckEnabled="False"
+                    IsTextPredictionEnabled="False"
+                    Keyboard="Numeric"
+                    Placeholder="{ex:Translate Key=label_text_tax_rate}"
+                    PlaceholderColor="LightGray"
+                    Text="{Binding Product.RateOfTax}"
+                    TextColor="Black"
+                    
+                    VerticalOptions="Start">
+                    <Entry.Effects>
+                        <effects:RoundedEffect />
+                    </Entry.Effects>
+                </Entry>
+                <Entry
+                    Margin="16,10,20,0"
+                    FontSize="14"
+                    HorizontalOptions="FillAndExpand"
+                    IsSpellCheckEnabled="False"
+                    IsTextPredictionEnabled="False"
+                    Placeholder="{ex:Translate Key=label_text_discount_percent}"
+                    PlaceholderColor="LightGray"
+                    Text="{Binding Product.PercentDiscount}"
+                    TextColor="Black"
+                    Keyboard="Numeric"
+                    VerticalOptions="Start">
+                    <Entry.Effects>
+                        <effects:RoundedEffect />
+                    </Entry.Effects>
+                </Entry>
+
+               
+                <Editor
+                    Margin="16,10,20,0"
+                    AutoSize="TextChanges"
+                    FontSize="14"
+                    HorizontalOptions="FillAndExpand"
+                    Placeholder="{ex:Translate Key=entry_hint_comment}"
+                    PlaceholderColor="LightGray"
+                    Text="{Binding Product.Comment}"
+                    TextColor="Black"
+                    VerticalOptions="Start">
+                    <Editor.Effects>
+                        <effects:RoundedEffect />
+                    </Editor.Effects>
+                </Editor>
+                
+               
+                <Button
+                    Margin="16,10,20,10"
+                    BackgroundColor="#47cec0"
+                    BorderColor="#47cec0"
+                    Command="{Binding SaveProductCommand}"
+                    CornerRadius="0"
+                    FontSize="14"
+                    HeightRequest="40"
+                    HorizontalOptions="FillAndExpand"
+                    Text="{ex:Translate Key=button_text_save}"
+                    TextColor="White"
+                    VerticalOptions="Start"
+                    
+                    />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>  
